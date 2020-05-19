@@ -1,0 +1,27 @@
+{
+  "name": "node-course",
+  "version": "1.0.0",
+  "description": "EPAM Node JS Course May 2020",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themightyigor/node-course.git"
+  },
+  "author": "Igor Rabizov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/themightyigor/node-course/issues"
+  },
+  "homepage": "https://github.com/themightyigor/node-course#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {},
+  "keywords": []
+}
