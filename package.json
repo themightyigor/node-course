@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "EPAM Node JS Course May 2020",
   "main": "index.js",
-  "bin": {
-    "cli": "./index.js"
-  },
   "scripts": {
     "server": "nodemon index.js",
     "lint": "eslint .",
@@ -26,8 +23,7 @@
     "nodemon": "^2.0.3"
   },
   "dependencies": {
-    "commander": "^5.1.0",
-    "csvtojson": "^2.0.10"
+    "express": "^4.17.1"
   },
   "keywords": []
 }
