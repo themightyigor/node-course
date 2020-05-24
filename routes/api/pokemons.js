@@ -31,8 +31,15 @@ router.get('/', async (req, res) => {
 
 // @route    GET api/pokemons/captured
 // @desc     GET a captured pokemon
-router.get('/captured', (req, res) => {
-  res.json(PokemonService.getCaptured());
+router.get('/captured', async (req, res) => {
+  try {
+    const captured = await PokemonService.getCaptured();
+
+    res.json(captured);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 // @route    GET api/pokemons/:id
@@ -76,8 +83,18 @@ router.delete('/:id', async (req, res) => {
 
 // @route    PATCH api/pokemons/:id
 // @desc     PATCH a pokemon
-router.patch('/:id', (req, res) => {
-  res.json(PokemonService.catchPokemon(req.params.id));
+router.patch('/:id', async (req, res) => {
+  try {
+    const pokemon = await PokemonService.catchPokemon(
+      req.params.id,
+      req.body.isCaught
+    );
+
+    res.json(pokemon);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;
