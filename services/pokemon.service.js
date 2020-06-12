@@ -1,51 +1,59 @@
-const POKEMONS = require('../mock-pokemons');
+const Pokemon = require('../models/Pokemon');
 
-class PokemonService {
-  constructor() {
-    this.pokemons = POKEMONS;
-  }
+function addPokemon(pokemon) {
+  const { name, damage, isCaught, createdAt } = pokemon;
+  const newPokemon = new Pokemon({
+    name,
+    damage,
+    isCaught,
+    createdAt,
+  });
 
-  addPokemon(pokemon) {
-    pokemon.id = this.pokemons.length + 1;
-    this.pokemons.push(pokemon);
-    return pokemon;
-  }
-
-  getPokemons(term) {
-    if (term) {
-      return this.pokemons.filter(pokemon =>
-        pokemon.name.toLowerCase().includes(term.toLowerCase())
-      );
-    }
-    return this.pokemons;
-  }
-
-  getPokemonById(id) {
-    const pokemon = this.pokemons.find(pokemon => pokemon.id === +id);
-    return pokemon;
-  }
-
-  updatePokemon(id, updatedPokemon) {
-    console.log(updatedPokemon);
-    this.pokemons = this.pokemons.map(pokemon =>
-      pokemon.id === +id ? { ...pokemon, ...updatedPokemon } : pokemon
-    );
-  }
-
-  deletePokemon(id) {
-    this.pokemons = this.pokemons.filter(pokemon => pokemon.id !== +id);
-  }
-
-  catchPokemon(id) {
-    this.pokemons = this.pokemons.map(pokemon =>
-      pokemon.id === +id ? { ...pokemon, isCaught: true } : pokemon
-    );
-  }
-
-  getCaptured() {
-    const captured = this.pokemons.filter(pokemon => pokemon.isCaught);
-    return captured;
-  }
+  return newPokemon.save();
 }
 
-module.exports = new PokemonService();
+function getPokemons(name) {
+  return Pokemon.find(name && { name });
+}
+
+function getPokemonById(pokemonId) {
+  return Pokemon.findById(pokemonId);
+}
+
+function updatePokemon(pokemonId, updatedPokemon) {
+  return Pokemon.findOneAndUpdate(
+    { _id: pokemonId },
+    {
+      $set: updatedPokemon,
+    },
+    { new: true }
+  );
+}
+
+function deletePokemon(pokemonId) {
+  return Pokemon.findOneAndRemove({ _id: pokemonId });
+}
+
+function catchPokemon(pokemonId, isCaught = true) {
+  return Pokemon.findOneAndUpdate(
+    { _id: pokemonId },
+    { isCaught },
+    { new: true }
+  );
+}
+
+function getCaptured() {
+  return Pokemon.find({
+    isCaught: true,
+  });
+}
+
+module.exports = {
+  addPokemon,
+  getPokemons,
+  getPokemonById,
+  updatePokemon,
+  deletePokemon,
+  catchPokemon,
+  getCaptured,
+};
