@@ -38,7 +38,7 @@ export class PokemonController {
     }
 
     @Patch(':id')
-    async catch(@Param('id') id: number) {
+    toggleStatus(@Param('id') id: number): Promise<PokemonEntity> {
         return this.pokemonService.toggleStatus(id);
     }
 }
