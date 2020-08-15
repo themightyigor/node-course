@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PokemonDto {
@@ -13,4 +13,8 @@ export class PokemonDto {
     @ApiProperty()
     @IsNumber()
     readonly damage: number;
+
+    @ApiProperty({ default: false })
+    @IsBoolean()
+    readonly isCaught: boolean;
 }

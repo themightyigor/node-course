@@ -9,4 +9,7 @@ export class PokemonEntity extends AbstractEntity {
 
     @Column('int')
     damage: number;
+
+    @Column({ type: 'bool', default: false })
+    isCaught: boolean;
 }

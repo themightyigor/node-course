@@ -31,4 +31,15 @@ export class PokemonService {
     async findOne(id: number): Promise<PokemonEntity> {
         return await this.pokemonRepository.findOne(id);
     }
+
+    async toggleStatus(id: number): Promise<PokemonEntity> {
+        const pokemonEntity = await this.findOne(id);
+        const updateEntity = {
+            ...pokemonEntity,
+            isCaught: !pokemonEntity.isCaught,
+            updatedAt: new Date(),
+          };
+
+        return await this.pokemonRepository.save(updateEntity);
+    }
 }

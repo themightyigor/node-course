@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Put, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Put, Delete, Patch, UseGuards } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { PokemonDto } from './pokemon.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -16,7 +16,6 @@ export class PokemonController {
     }
 
     @Post()
-    @UseGuards(AuthGuard('jwt'))
     create(@Body() PokemonDto: PokemonDto) {
         return this.pokemonService.create(PokemonDto);
     }
@@ -36,5 +35,10 @@ export class PokemonController {
     @Get(':id')
     findOne(@Param('id') id: number): Promise<PokemonEntity> {
         return this.pokemonService.findOne(id);
+    }
+
+    @Patch(':id')
+    async catch(@Param('id') id: number) {
+        return this.pokemonService.toggleStatus(id);
     }
 }
