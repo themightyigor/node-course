@@ -16,6 +16,7 @@ export class PokemonController {
     }
 
     @Post()
+    @UseGuards(AuthGuard('jwt'))
     create(@Body() PokemonDto: PokemonDto) {
         return this.pokemonService.create(PokemonDto);
     }
@@ -38,6 +39,7 @@ export class PokemonController {
     }
 
     @Patch(':id')
+    @UseGuards(AuthGuard('jwt'))
     toggleStatus(@Param('id') id: number): Promise<PokemonEntity> {
         return this.pokemonService.toggleStatus(id);
     }
